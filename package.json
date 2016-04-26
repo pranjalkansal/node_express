@@ -1,0 +1,21 @@
+{
+  "name": "node_project",
+  "version": "1.0.0",
+  "description": "A node project to practice rest api's",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pranjalkansal/node_express.git"
+  },
+  "scripts": {
+    "test": "echo 'hello node'",
+    "start": "node server.js"
+  },
+  "author": "Pranjal",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.0-rc.3",
+    "express": "^4.13.4",
+    "mysql": "^2.10.2"
+  }
+}
