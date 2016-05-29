@@ -25,13 +25,16 @@ mysql.connection.on('error', function (error) {
   mysql.connection.connect();
 });
 
-// IIFE to create basic table structure (IF NOT EXISTS).
-(function initialize_tables() {
-  mysql.connection.query('')
-});
-
 // Connect to mysql databse and use database provided in BASIC configuration by default.
 mysql.connection.query(db_query.use_database, db_query.execute.log);
+
+// IIFE to create basic table structure (IF NOT EXISTS).
+(function initialize_tables() {
+  console.log(db_query.create.user_table);
+  mysql.connection.query(db_query.create.user_table, db_query.execute.table_created);
+  mysql.connection.query(db_query.create.user_email_table, db_query.execute.table_created);
+  mysql.connection.query(db_query.create.user_datetime_table, db_query.execute.table_created);
+}());
 
 // Query to show all tables.
 query.show_tables = function () {

@@ -20,9 +20,10 @@ query.use_database = 'USE ' + CONFIG.database_to_use;
 
 // Create tables (Basic Structure).
 query.create = {};
-query.create.if_not_exits = 'CREATE TABLE IF NOT EXITS ';
-query.create.user_table = query.create.if_not_exits + 'USERS (serial_number INT UNSIGNED AUTO_INCREMENT, user_name VARCHAR(30) PRIMARY KEY, first_name VARCHAR(40), last_name VARCHAR(40))';
-query.create.user_email_table = query.create.if_not_exits + 'USERS_EMAIL (serial_number INT UNSIGNED AUTO_INCREMENT, user_name VARCHAR(30), user_email VARCHAR(60) PRIMARY KEY, FOREIGN KEY (user_name) REFERENCES USERS(user_name) ON DELETE CASCADE)';
+query.create.if_not_exits = 'CREATE TABLE IF NOT EXISTS ';
+query.create.user_table = query.create.if_not_exits + 'USERS (user_name VARCHAR(30) PRIMARY KEY, first_name VARCHAR(40), last_name VARCHAR(40))';
+query.create.user_email_table = query.create.if_not_exits + 'USERS_EMAIL (user_name VARCHAR(30), user_email VARCHAR(60) PRIMARY KEY, FOREIGN KEY (user_name) REFERENCES USERS(user_name) ON DELETE CASCADE)';
+query.create.user_datetime_table = query.create.if_not_exits + 'USER_DATETIME_DETAILS (user_name VARCHAR(30), creation_date DATE, last_login DATE, FOREIGN KEY (user_name) REFERENCES USERS(user_name) ON DELETE CASCADE)';
 
 // Get Query's.
 query.show = {};
@@ -43,6 +44,14 @@ query.execute.log = function (error, rows, fields) {
   console.log('Fetched fields: ', fields);
 };
 
+// Execute table creating function.
+query.execute.table_created = function (error, rows, fields) {
+  if(error) {
+    console.log(db_errors.query.error.replace('%', this.sql));
+    return false;
+  }
+  console.log(db_errors.query.success.replace('%', this.sql));
+};
 //********************** End of common functions. *****************************/
 
 // Export configurations.
