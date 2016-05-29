@@ -25,12 +25,17 @@ mysql.connection.on('error', function (error) {
   mysql.connection.connect();
 });
 
+// IIFE to create basic table structure (IF NOT EXISTS).
+(function initialize_tables() {
+  mysql.connection.query('')
+});
+
 // Connect to mysql databse and use database provided in BASIC configuration by default.
-mysql.connection.query(db_query.use_database, db_query.execute_log);
+mysql.connection.query(db_query.use_database, db_query.execute.log);
 
 // Query to show all tables.
 query.show_tables = function () {
-  mysql.connection.query(db_query.show_tables, function (error, rows, fields) {});
+  mysql.connection.query(db_query.show.tables, function (error, rows, fields) {});
 };
 
 module.exports = query;
