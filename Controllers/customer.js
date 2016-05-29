@@ -8,9 +8,15 @@
 // Enable strict mode
 'use strict';
 
+// Get custom files.
+const query = require('../Database/query.js');
+
 var customer = {};
 
 // Customer registration and login functions.
 customer.register = function (request, reply) {
-  
+  var data = query.register_user(request.body);
+  return reply.send(data);
 };
+
+module.exports = customer;

@@ -17,6 +17,7 @@
     "async": "^2.0.0-rc.3",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "jsonwebtoken": "^7.0.0",
     "mysql": "^2.10.2"
   }
 }

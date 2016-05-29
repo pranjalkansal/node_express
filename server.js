@@ -12,6 +12,7 @@
 
 // Get vendors.
 const server = require('express')();
+const body_parser = require('body-parser')
 // End vendors.
 
 // Get custom files.
@@ -22,10 +23,23 @@ const Mysql = require('./Database/query.js');
 
 /********************* End of dependencies import *****************************/
 
+/********************* Middleware to parse json data **************************/
+server.use(body_parser.json());
+server.use(body_parser.urlencoded({extended: true}));
+
+/************************ End of Middlewares **********************************/
+
 /************************ Server routes for user ******************************/
+
+server.get('/', function (request, reply) {
+  console.log(request);
+  return reply.send('hello world!!')
+});
 
 // Post application programing interface (api's).
 server.post('/customer/register', Controller.customer.register);
+server.listen(Config.port);
+return;
 server.post('/customer/login', Controller.customer.login);
 
 // Put application programing interface (api's).

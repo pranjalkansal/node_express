@@ -15,7 +15,9 @@ const CONFIG = {
   // Configure database details.
   database: {host: 'localhost', user: 'node', password: 'qwerty'},
   // Configure database to use.
-  database_to_use: 'node_chat_dev'
+  database_to_use: 'node_chat_dev',
+  // jsonwebtoken configurations.
+  jsonwebtoken: {secret: 'node_mysql_database_express ' + new Date(), options: {algorithm: 'HS256'}}
 };
 // Constants configuration end.
 

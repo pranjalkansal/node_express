@@ -11,7 +11,7 @@
 // Configure Messages to display (error or success).
 const MESSAGE = {
   // Config connection messages.
-  connection: {error: 'Error: Connection to database fails!!', success: 'Success: Connection to database established!!'},
+  token: {error: 'Error: Token creation fails!!', success: 'Success: Token created successfully!!'},
   // Configure database query messages.
   query: {error: 'Error: Database query % failed to execute!!', success: 'Success: Database query % successfully executed!!'}
 };
