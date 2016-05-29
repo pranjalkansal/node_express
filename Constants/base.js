@@ -13,7 +13,9 @@ const CONFIG = {
   // Config port to use to listen incoming requests
   port: 8000,
   // Configure database details.
-  database: {host: 'localhost', user: 'node', password: 'node_db_12'}
+  database: {host: 'localhost', user: 'node', password: 'qwerty'},
+  // Configure database to use.
+  database_to_use: 'node_chat_dev'
 };
 // Constants configuration end.
 

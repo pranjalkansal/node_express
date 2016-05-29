@@ -16,7 +16,8 @@ const server = require('express')();
 
 // Get custom files.
 const Config = require('./Constants/index.js').BASIC;
-const Controller = require('./Controller/index.js');
+const Controller = require('./Controllers/index.js');
+const Mysql = require('./Database/query.js');
 // End custom files import.
 
 /********************* End of dependencies import *****************************/
