@@ -22,7 +22,7 @@ query.use_database = 'USE ' + CONFIG.database_to_use;
 query.create = {};
 query.create.if_not_exits = 'CREATE TABLE IF NOT EXISTS ';
 query.create.user_table = query.create.if_not_exits + 'users (user_name VARCHAR(30) PRIMARY KEY, first_name VARCHAR(40), last_name VARCHAR(40))';
-query.create.user_email_table = query.create.if_not_exits + 'users_email (user_name VARCHAR(30), user_email VARCHAR(60) PRIMARY KEY, password VARCHAR(20), FOREIGN KEY (user_name) REFERENCES USERS(user_name) ON DELETE CASCADE)';
+query.create.user_email_table = query.create.if_not_exits + 'users_email (user_name VARCHAR(30), user_email VARCHAR(60) PRIMARY KEY, password VARCHAR(20), token TEXT, FOREIGN KEY (user_name) REFERENCES USERS(user_name) ON DELETE CASCADE)';
 query.create.user_datetime_table = query.create.if_not_exits + 'users_datetime_details (user_name VARCHAR(30), creation_date DATE, last_login DATE, FOREIGN KEY (user_name) REFERENCES USERS(user_name) ON DELETE CASCADE)';
 
 // Get Query's.
@@ -34,7 +34,7 @@ query.select_all = 'SELECT * FROM ';
 // Post Query's.
 query.user = {};
 query.user.register_user = 'INSERT INTO users (user_name, first_name, last_name) VALUES (?, ?, ?)';
-query.user.register_user_email = 'INSERT INTO users_email (user_name, user_email, password) VALUES (?, ?, ?)';
+query.user.register_user_email = 'INSERT INTO users_email (user_name, user_email, password, token) VALUES (?, ?, ?, ?)';
 query.user.register_user_datetime = 'INSERT INTO users_datetime_details (user_name, creation_date, last_login) VALUES (?, ?, ?)';
 /**************** Common functions to execute with query. *********************/
 

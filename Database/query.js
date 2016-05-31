@@ -24,45 +24,44 @@ var query = {};
 
 // Query to register new user.
 query.register_user = function (user) {
-  mysql.connection.query(db_query.user.register_user, [user.user_name, user.first_name, user.last_name], function (error, rows, fields) {
+  async.auto({
+    create_user: function create_new_user(callback) {
+      mysql.connection.query(db_query.user.register_user, [user.user_name, user.first_name, user.last_name], function (error, rows) {
+        if(error) return callback(db_errors.user.error);
+        console.log(db_errors.query.success.replace('%', db_query.user.register_user));
+        callback(null, true);
+      });
+    },
+    create_token: ['create_user', function create_new_token(result, callback) {
+      JWT.sign({user: user.first_name, date: new Date()}, jwt_token.secret, jwt_token.options, function (error, token) {
+        if(error) return callback(message.token.error);
+        console.log(message.token.success);
+        callback(null, token);
+      });
+    }],
+    register_user_email: ['create_user', 'create_token', function (result, callback) {
+      mysql.connection.query(db_query.user.register_user_email, [user.user_name, user.email, user.password, result.create_token], function (error, rows) {
+        if(error) return callback(db_errors.user.error);
+        console.log(db_errors.query.success.replace('%', db_query.user.register_user_email));
+        callback(null, true);
+      });
+    }],
+    register_user_datetime: ['create_user', function (result, callback) {
+      mysql.connection.query(db_query.user.register_user_datetime, [user.user_name, new Date().toJSON(), new Date().toJSON()], function (error, rows) {
+        if(error) return callback(db_errors.user.error);
+        console.log(db_errors.query.success.replace('%', db_query.user.register_user_datetime));
+        callback(null, true);
+      });
+    }]
+  }, function (error, result) {
     if(error) {
-      console.log(db_errors.query.error.replace('%', db_query.user.register_user));
-      return db_errors.user.error;
+      console.log(error);
+      return error;
     }
-    console.log(db_errors.query.success.replace('%', db_query.user.register_user));
-
-    // Register other details after creating parent row.
-    async.parallel([
-      function user_email_register(callback) {
-        mysql.connection.query(db_query.user.register_user_email, [user.user_name, user.email, user.password], function (error, rows, fields) {
-          if(error) return callback(db_errors.query.error.replace('%', 'Query'));
-          callback(null, true);
-        })
-      },
-      function user_datetime_registration(callback) {
-        mysql.connection.query(db_query.user.register_user_datetime, [user.user_name, new Date().toJSON(), new Date().toJSON()], function (error, rows, fields) {
-          if(error) return callback(db_errors.query.error.replace('%', 'Query'));
-          callback(null, true);
-        })
-      },
-      function create_token(callback) {
-        JWT.sign({user: user.first_name, date: new Date()}, jwt_token.secret, jwt_token.options, function (error, token) {
-          if(error) callback(message.token.error);
-          else {
-            console.log(message.token.success);
-            callback(null, {message: db_errors.user.success, access_token: token});
-          }
-        });
-      }
-    ], function (error, result) {
-      if (error) {
-        console.log(error);
-        return db_errors.user.error;
-      }
-      console.log(db_errors.user.success);
-      return result[result.length - 1];
-    });
+    console.log(db_errors.user.success);
+    return {message: db_query.user.success, token: result.create_token};
   });
 };
 
+// Export all user's query's.
 module.exports = query;
