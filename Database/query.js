@@ -23,7 +23,7 @@ const message = require('../Constants/index.js').MESSAGE;
 var query = {};
 
 // Query to register new user.
-query.register_user = function (user) {
+query.register_user = function (user, callback) {
   async.auto({
     create_user: function create_new_user(callback) {
       mysql.connection.query(db_query.user.register_user, [user.user_name, user.first_name, user.last_name], function (error, rows) {
@@ -56,10 +56,10 @@ query.register_user = function (user) {
   }, function (error, result) {
     if(error) {
       console.log(error);
-      return error;
+      return callback({error});
     }
     console.log(db_errors.user.success);
-    return {message: db_query.user.success, token: result.create_token};
+    return callback(null, {message: db_errors.user.success, token: result.create_token});
   });
 };
 

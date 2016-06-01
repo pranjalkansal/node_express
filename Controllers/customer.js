@@ -15,8 +15,9 @@ var customer = {};
 
 // Customer registration and login functions.
 customer.register = function (request, reply) {
-  var data = query.register_user(request.body);
-  return reply.send(data);
+  var data = query.register_user(request.body, function (error, response) {
+    return reply.send(error?error:response);
+  });
 };
 
 module.exports = customer;
