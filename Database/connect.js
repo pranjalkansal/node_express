@@ -14,6 +14,7 @@ const mysql = require('mysql');
 // Get custom files.
 const db_config = require('../Constants/index.js').BASIC;
 const db_query = require('../Constants/index.js').QUERY;
+const db_callback = require('../Functions/index.js').DATABASE_CALLBACK;
 
 // Initiate mysql connection.
 var mysql_connection = mysql.createConnection(db_config.database);
@@ -28,13 +29,13 @@ mysql_connection.on('error', function (error) {
 });
 
 // Connect to mysql databse and use database provided in BASIC configuration by default.
-mysql_connection.query(db_query.use_database, db_query.execute.log);
+mysql_connection.query(db_query.use_database, db_callback.execute.database_changed);
 
 // IIFE to create basic table structure (IF NOT EXISTS).
 (function initialize_tables() {
-  mysql_connection.query(db_query.create.user_table, db_query.execute.table_created);
-  mysql_connection.query(db_query.create.user_email_table, db_query.execute.table_created);
-  mysql_connection.query(db_query.create.user_datetime_table, db_query.execute.table_created);
+  mysql_connection.query(db_query.create.user_table, db_callback.execute.table_created);
+  mysql_connection.query(db_query.create.user_email_table, db_callback.execute.table_created);
+  mysql_connection.query(db_query.create.user_datetime_table, db_callback.execute.table_created);
 }());
 
 // Export created connection.

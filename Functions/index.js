@@ -9,7 +9,7 @@
 'use strict';
 
 // Import all configuratin files.
-const customer = require('./customer.js');
+const DATABASE_CALLBACK = require('./database.js');
 
 // Export configuration files.
-module.exports = {customer};
+module.exports = {DATABASE_CALLBACK};

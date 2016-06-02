@@ -13,7 +13,7 @@ const CONFIG = {
   // Config port to use to listen incoming requests
   port: 8000,
   // Configure database details.
-  database: {host: 'localhost', user: 'node', password: 'qwerty', port: '8889'},
+  database: {host: 'localhost', user: 'node', password: 'qwerty'},
   // Configure database to use.
   database_to_use: 'node_chat_dev',
   // jsonwebtoken configurations.

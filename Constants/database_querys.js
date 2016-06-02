@@ -29,35 +29,18 @@ query.create.user_datetime_table = query.create.if_not_exits + 'users_datetime_d
 query.show = {};
 query.show.databases = 'SHOW DATABASES';
 query.show.tables = 'SHOW TABLES';
-query.select_all = 'SELECT * FROM ';
+
+// Select Query's.
+query.select = {};
+query.select.select_all = 'SELECT * FROM ';
+query.select.username = 'SELECT user_name FROM users WHERE user_name = ?';
+query.select.email = 'SELECT user_email FROM users_email WHERE user_email = ?';
 
 // Post Query's.
 query.user = {};
 query.user.register_user = 'INSERT INTO users (user_name, first_name, last_name) VALUES (?, ?, ?)';
 query.user.register_user_email = 'INSERT INTO users_email (user_name, user_email, password, token) VALUES (?, ?, ?, ?)';
 query.user.register_user_datetime = 'INSERT INTO users_datetime_details (user_name, creation_date, last_login) VALUES (?, ?, ?)';
-/**************** Common functions to execute with query. *********************/
-
-query.execute = {};
-// Execute logs.
-query.execute.log = function (error, rows, fields) {
-  if(error) {
-    console.log(db_errors.connection.error);
-    return false;
-  }
-  console.log('Fetched rows: ', rows);
-  console.log('Fetched fields: ', fields);
-};
-
-// Execute table creating function.
-query.execute.table_created = function (error, rows, fields) {
-  if(error) {
-    console.log(db_errors.query.error.replace('%', this.sql));
-    return false;
-  }
-  console.log(db_errors.query.success.replace('%', this.sql));
-};
-//********************** End of common functions. *****************************/
 
 // Export configurations.
 module.exports = query;
