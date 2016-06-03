@@ -22,7 +22,7 @@ query.use_database = 'USE ' + CONFIG.database_to_use;
 query.create = {};
 query.create.if_not_exits = 'CREATE TABLE IF NOT EXISTS ';
 query.create.user_table = query.create.if_not_exits + 'users (user_name VARCHAR(30) PRIMARY KEY, first_name VARCHAR(40), last_name VARCHAR(40))';
-query.create.user_email_table = query.create.if_not_exits + 'users_email (user_name VARCHAR(30), user_email VARCHAR(60) PRIMARY KEY, password VARCHAR(20), token TEXT, FOREIGN KEY (user_name) REFERENCES USERS(user_name) ON DELETE CASCADE)';
+query.create.user_email_table = query.create.if_not_exits + 'users_email (user_name VARCHAR(30), user_email VARCHAR(60) PRIMARY KEY, password VARCHAR(20) NOT NULL, token TEXT, FOREIGN KEY (user_name) REFERENCES USERS(user_name) ON DELETE CASCADE)';
 query.create.user_datetime_table = query.create.if_not_exits + 'users_datetime_details (user_name VARCHAR(30), creation_date DATE, last_login DATE, FOREIGN KEY (user_name) REFERENCES USERS(user_name) ON DELETE CASCADE)';
 
 // Get Query's.
@@ -35,6 +35,11 @@ query.select = {};
 query.select.select_all = 'SELECT * FROM ';
 query.select.username = 'SELECT user_name FROM users WHERE user_name = ?';
 query.select.email = 'SELECT user_email FROM users_email WHERE user_email = ?';
+query.select.username_or_email = 'SELECT user_email, password FROM users_email WHERE user_email = ? or user_name = ?';
+
+// Update Query's.
+query.update = {};
+query.update.token = 'UPDATE users_email SET token = ? WHERE user_name = ? or user_email = ?';
 
 // Post Query's.
 query.user = {};

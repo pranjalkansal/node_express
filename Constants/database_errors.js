@@ -35,6 +35,9 @@ DATABASE.user.name_entry = {error: 'Error: User name entery failed!!', success: 
 DATABASE.user.email_entry = {error: 'Error: User email registration failed!!', success: 'Success: User email successfully registered!!'};
 DATABASE.user.datetime_entry = {error: 'Error: User datetime registration failed!!', success: 'Success: User datetime successfully registered!!'};
 
+// While user log in.
+DATABASE.user.login = {error: 'Error: Username or password mismatch!!', success: 'Success: User successfully logged in!!', not_exist: 'Status: Username or email dosen\'t exists!!'};
+DATABASE.user.token_update = {error: 'Error: User token update error!!', success: 'Success: User token successfully updated!!'};
 // Database errors while performing users operations end.
 
 // Export configurations.
