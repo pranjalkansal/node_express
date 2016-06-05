@@ -18,10 +18,20 @@ const body_parser = require('body-parser')
 // Get custom files.
 const Config = require('./Constants/index.js').BASIC;
 const Controller = require('./Controllers/index.js');
-const Mysql = require('./Database/query.js');
 // End custom files import.
 
 /********************* End of dependencies import *****************************/
+
+/************************** Custom Middlewares ********************************/
+var allow_cross_origin = function (request, reply, next) {
+  reply.header('Access-Control-Allow-Origin', '*');
+  reply.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+};
+
+server.use(allow_cross_origin);
+
+/************************ End of Custom Middlewares ***************************/
 
 /********************* Middleware to parse json data **************************/
 server.use(body_parser.json());
